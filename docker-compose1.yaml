@@ -1,0 +1,38 @@
+# Setup LAMP architecture where a mysql container can be linked with an apache and php container
+# 1 Create a mysql container
+#   docker run --name db -d -e MYSQL_ROOT_PASSWORD=intelliqit mysql
+
+# 2 Create an apache and link with mysql container
+#   docker run --name apache -d -p 9090:80 --link db:mysql  httpd
+
+
+# 3 Create a php container and link with apache and mysql containers
+#   docker run --name php -d --link db:mysql --link apache:httpd php:7.2-apache
+
+# 4 To check if php container is linked with mysql and apache container
+#   docker inspect php
+#   Search for "Links" section
+
+
+# now, create a docker compose for the above  and call the file name using the dcker compose
+services:
+ mydb:
+  image: mysql
+  environment: 
+   MYSQL_ROOT_PASSWORD: sudheer
+  container_name: Database
+
+ apache:
+   image: httpd
+   ports:
+    - 6004:80
+   links:
+    - mydb:mysql
+   container_name: Tomcat
+
+ php:
+   image: php
+   links:
+    - mydb:mysql
+    - apache:httpd
+   container_name: PHP
