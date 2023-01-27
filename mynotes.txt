@@ -1,0 +1,511 @@
+YAML Intriduction: https://www.youtube.com/watch?v=GOk4IoYhM9U&t=6s
+References: https://docs.docker.com/engine/reference/builder/
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+TLS Handshake: https://www.cloudflare.com/en-gb/learning/ssl/what-happens-in-a-tls-handshake/
+TSL Certificate: https://devopscube.com/create-self-signed-certificates-openssl/
+Extending the session timeouts in the putty console: https://stackoverflow.com/questions/7210011/amazon-ec2-ssh-timeout-due-inactivity
+to check the aws ping: cloudpingtestr.com/aws
+
+
+git init		//To initilise the working dir as a git repo
+git add filename	//To send a file into from working dir to stagging area
+git add file1 file2 file3	// to add multiple files
+git add . 		// to add iles all at once
+git reset filename	// To bring files from stagging area to working dir
+git commit -m "Some msg" //To send files from stagging area to local repository
+git status 		// To check the status of working dir and stagging area files
+git log 		//To see the commits done on the local repository
+git log --oneline	//To see this output in simple one line format
+git remote -v 
+git remote add origin <https://gitlab.com/testproject94/practiceproject.gi t - https URL>
+			the added origin can be seen in the "cat .git/config"
+git remote remove origin	// to remove the origin
+cat .git/config			// shows the added SSH or HTTPS keys
+git push -u origin master   // creates master and pushes the content into the origin
+git pull origin master		//pulls the files from origin
+git remote add origin <SSH - origin>git@gitlab.com:testproject94/practiceproject.git	// to add the SSH origin
+git clone <git@gitlab.com:testproject94/practiceproject.git> <project name-sudheer>	// cloning with ssh
+
+git branch <new branc> 	// creates a new branch
+git branch 		//shows the branches available
+git checkout veena	// to swicth between the branches
+git branch -D <branch name> 	//deletes the branch
+rm -rf vna		// forceful delete
+git fetch origin 		// shows the commits of all branches
+git fetch origin <branch>	 // shows the commits by branch
+git merge origin/master		//
+git config --global credential.helper store  //global credentials storage
+------------------------------------------------
+git pull = fetch + merge
+changes+history = Rebase
+changes only without history -> go for merge of fast forward
+
+------------------------------------------------
+git checkout -b test2 = git branch test2 + git checkout test2  //creates a branch and switches to it.
+
+git merge test  // from master you can merge the changes of test node
+
+touch 1 && git add . && git commit -m "1"   // creates add and commits
+git checkout <sha1 id> // detached head mode  -> to know about the time travels and status in git
+
+to see the resolved conflicts: 
+----------------------------------
+git log --oneline --graph    ---> to check the merge conflicts with graph structure
+git log --oneline  --first-parent  --> to  check the mege conflict with parent wise
+
+git checkout -b test  // Creates and checkout the branch
+
+git checkout test  --> to switch to test branch
+git branch    --> will show where you are with *
+git rebase test 
+git status
+git log --oneline  	// to look at the history
+git  merge --abort	// to abort the merge process
+
+to abort the merge and rebase:
+-------------------------------
+git rebase --abort
+git merge --abort
+
+git branch -r 	//shows the no of branches of REMOTE
+
+
+
+Git sqaush
+==============
+This is the process of merging multiple commits and making
+it look like a single commit.This can be done using the git rebase
+command
+---------------------
+IQ: differnce between merge and rebase?
+Git rebase and merge both integrate changes from one branch into another. Where they differ is how it's done. Git rebase moves a feature branch into a master. Git merge adds a new commit, preserving the history.
+--------------------
+nano .ignore // to create a ignore file for git
+nano .gitignore  -> add the required file names here
+git  commit -am "updated ignore"
+
+git touch 6
+git commit -am "created file"
+
+
+git --version
+
+git switch -c <branch name> //will create and get into the branch name
+
+Git Pull:
+------------
+git fetch
+Files will come to repo but not to the workspace or working directory
+
+git pull = fetch + merge
+File will come to local reposirtoy and the files will get to the workspace
+
+git remote -v
+git remote add origin git@
+
+alias l ="git log --oneline"		//alias for oneline
+
+git push origin master 
+git pull
+
+
+git branch -r  //shows the no of branches available in the remote
+cat .git/config
+
+Git stashing
+======================
+Stash is a section of git into which once the files are pushed 
+git cannot access them
+
+To stash all the files present in the stagging area
+git stash 
+
+To stash all files present in stagging area and untracked section
+git stash -u
+
+To stash all files present in stagging area,untracked section and .gitignore
+git stash -a
+
+To see the list of stases
+git stash list
+
+To unstash a latest stash
+git stash pop
+
+To unstash an older stash
+git stash pop stash@{stashno}
+
+git stash apply stash@{stashno}
+
+
+git stash list
+git stash save "temp"
+
+
+-----------------------------------------------DOCKER-------------------------------------------------
+docker pull image_name					//To pull a docker image
+docker search image_name				//To search for a docker images
+docker push image_name					//To upload an image into docker hub
+docker images						//To see the list of images that are downloaded
+docker image inspect image_name/image_id		//To get detailed info about a docker image
+docker rmi image_name/image_id				//To delete a docker image that is not linked to 							  	  any container
+docker save image_name					// To save the docker image as a tar file
+docker load tarfile_name				//To untar this tar file and get  image
+docker system prune -af					//To delete all image
+docker build -t image_name .				//To create a docker image from a dockerfile
+docker commit container_id/container_name image_name	//To create an image from a customised container
+docker ps						//show sthe running containers
+docker container ls					//To see the list of running containers
+docker ps -a						//To see the list of all containers (running and stopped)
+docker start container_id/container_name		//to start the container
+docker stop container_id/container_name			//to stop the container
+docker restart container_id/container_name		// to restart a container
+docker restart -t 10 container_id/container_name	// to retsrt after 10 seconds
+docker rm container_id/container_name			// to delete a stopped container
+docker rm -f container_id/container_name		//to delete  a running container
+docker stop $(docker ps -aq)				//to stop running contianers
+docker rm $(docker ps -aq)				//to stop all containers
+docker rm -f $(docker ps -aq)				//To delete all running and stopped containers
+docker inspect container_id/container_name		//to get detailed info about container
+docker logs container_id/container_name			//to see logs generated by container
+docker port container_id/container_name			//to see ports used by container
+docker exec -it container_id/container_name bash	//To run any process in a container from outside the container
+docker attach container_id/container_name		//To go back into a container from where the 							  interactive terminal is running
+docker container container_id/container_name top	//To see the processes runnign in a container
+docker run -dit <imagename>				//to run the container
+docker build --no-cache -t myubuntu .			// build sthe image without taking from the cache
+rm -rf <dir name>					// to delete the dir forcefully	
+docker run --rm -it -d --name ub1 ubuntu		//container gets delete when it is stopped
+docker rm $(docker ps -qa)				//to remove all the container id's
+docker stop $(docker ps -q)				//to stop all the containers
+docker-compose -f <file namelamp-acrhitescture.yaml> up -d  //to specify the file name as part of docker compose
+docker-compose up -d 					//make up and running all the docker files
+
+ps aux | grep -i 'docker'				// to know which docker proceess in running
+
+Docker Volumes: (/var/lib/docker/volumes)
+-----------------------
+docker volumes ls
+watch -n ls -l						//to watch waiting for 1 sec
+docker volume inspect <vol name>			//to know about the volume
+
+
+
+
+===============
+Docker networks:
+===============	
+docker network ls									//To see the list of docker networks
+docker network create --driver network_type network_name				//To create a docker network
+docker network rm network_name/network_id						//To delete a docker network
+docker network connect network_name/network_id container_name/container_id		//To connect a running container to a network
+docker network disconnect network_name/network_id container_name/container_id		//To disconnect a running container to a network
+
+systemctl start docker.service
+systemctl enable docker.service
+systemctl status docker
+
+Dockerfile
+===================
+Dockerfile uses predefined keyword to create customsied
+docker images.
+
+Important keyword in dockerfile
+===================================
+FROM : This is used to specify the base image from where a
+customised docker image has to be created
+
+MAINTAINER : This represents the name of the organization or the
+author that has created this dockerfile
+
+RUN :Used to run linux commands in the container
+     Generally it used to do s/w installtion or
+     running scripts
+
+USER : This is used to specify who should be the default user
+       to login into the container
+
+COPY : Used to copy files from host to the customised image that
+       we are creating
+
+ADD : This is similar to copy where it can copy files from host
+      to image but ADD can also downlaod files from some remote server
+
+EXPOSE : USed to specify what port should be used by the container
+
+VOLUME : Used for automatic volume mounting ie we will have a volume
+         mounted automatically when the container start
+
+WORKDIR : Used to specify the default working directory of the container
+ENV : This is used to specify what environment varibles should
+     be used
+
+CMD : USed to run the default process of the container from outside
+      
+ENTRYPOINT : This is also used to run the default process of the container
+             
+LABEL: Used to store data about the docker image in key value pairs
+
+ARG: It is used to set the environment variables during the creation of a docker file
+
+ENV: Can be used in container also.
+
+=======================================================================================================================
+Kubernetes:
+-----------------------------------------------------------------------------------------------------------------------
+kc get nodes 		//to know about the nodes
+kc cluster-info		//to know about the cluster info
+
+
+Use "kubectl api-resources" for a complete list of supported resources.
+
+
+kubectl get pods	// # List all pods in ps output format
+kubectl get pods -o wide //  # List all pods in ps output format with more information (such as node name)
+kubectl get replicationcontroller web		//  # List a single replication controller with specified NAME in ps output format
+kubectl get deployments.v1.apps -o json 	//  # List deployments in JSON output format, in the "v1" version of the "apps" API group
+kubectl get -o json pod web-pod-13je7   //# List a single pod in JSON output format
+kubectl get -f pod.yaml -o json		 # List a pod identified by type and name specified in "pod.yaml" in JSON output format
+kubectl get -k dir/			/# List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml
+kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}  //  # Return only the phase value of the specified pod
+kubectl get rc,services 		//   # List all replication controllers and services together in ps output format
+kubectl get rc/web service/frontend pods/web-pod-13je7 //  # List one or more resources by their type and names
+kubectl get pod web-pod-13je7 --subresource status //  # List status subresource for a single pod.
+
+
+kc get ns 						//to get the namepsaces
+kc create ns spogaku 					// to create the namespace
+kc config set-context --current --namespace spogaku	//to switch to the name space
+kubectl run --image nginx <podname-webserver>		//Create nginx as a pod and name it webserver
+kubectl get pods			//To see the list of pods running
+kubectl  get pods -o wide		//To see more info about the pods like their ip and slave where 
+					they are running
+
+kubectl delete pods <webserver>		//To delete the pod
+kc api-resources			//to know about the api-versions
+kc delete pod <podname-sudheernginx>	//to delete the pod
+kc apply -f nginx_pod.yaml		//to apply the manifest file
+kc expose pod nginx --port  80 --type NodePort  // to expose the port
+kc get svc				// to get the services
+kc get pods -o wide			//to get the pods on which nodes they are running
+watch kubectl get pods			//to watch the pods
+kc config view				//to look at the namespace config 
+kc describe pod <podname>		//gives the desciption of pod toal information
+kc get deployments			//to know about the deploymemts
+kc get deploy				// gets the deployment name
+kc get all				//
+kc get replicaset
+kubectl delete service <service name>	// to delete a service
+kubectl port-forward nginx <desired port 32000:80 - actual port>  //used to test the connection for testing only.
+note: 
+=====
+when port mapping is available in the terminal, check for the connection in another terminal. 
+to test in another port, Use: curl localhost:32000
+Kc api-resources | grep  –i  ‘Deployment’	//to search with a particluar type from resources
+
+kubectl exec -it nginx -- bash			//to get into the pod
+
+
+kc config get-contexts				// Shows teh available contexts
+kc config use-context cfcr-discovery		// to switch to context
+kc config use-context spogaku@testcluster.ap-south-1.eksctl.io // to switch to context
+kc config use-context arn:aws:eks:ap-southeast-1:028791545937:cluster/testcluster1
+kc logs <ingress pod name -ingress-nginx-controller-d4954dd7-c9gf2> -n <ingress name - ingress-nginx>
+note: we have to use -n when they are in a separate namespace.
+==================================================================================================
+
+
+To see list of pods in a namespace
+======================================
+kubectl get pods -n <namespace>
+==================================================================================================
+add an alias and use it : add the alias -> compile them -> use them
+==================================================================================================
+nano ~/.bashrc				//to add the aliases in the config file.
+source ~/.bashrc			//to compile the added aliases
+
+==================================================================================================
+To create a pod: 
+=======================
+kubectl run <podname> --image=<nginx> --port = 80
+
+kubectl apply -f pod-defintion3.yml
+
+
+To create a cluster using eksctl:
+===================================
+Region = Mumbai
+-----------------------
+eksctl create cluster --name testcluster --version 1.22 --region ap-south-1 
+--nodegroup-name standard-workers --node-type t2.small 
+--nodes 3 --nodes-min 3 --nodes-max 3
+
+
+eksctl delete cluster --region=ap-south-1 --name=testcluster	//delete cluster
+
+Region = Singapore
+-------------------------
+eksctl create cluster --name testcluster1 --version 1.22 --region ap-southeast-1 --nodegroup-name standard-workers --node-type t2.small --nodes 3 --nodes-min 3 --nodes-max 3
+
+eksctl delete cluster --region=ap-southeast-1 --name=testcluster1	//delete cluster
+
+kc config use-context spogaku@testcluster1.ap-southeast-1.eksctl.io // to switch to context
+kubectl config use-context spogaku@testcluster1.ap-south-1.eksctl.io
+
+
+Created a new cluster in sydney
+<------------------------------->
+eksctl delete cluster --region=ap-southeast-2 --name=spogaku 
+<===============================================================>
+
+to install ingress controller:
+----------------------------------------
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+helm install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+
+
+to create a service using imperative way:
+==========================================
+kc get deploy <podname nginx-deploy-main> –name sample-nginx –port 80
+kc get deploy nginx-deploy-main -–name sample-nginx –port 80
+kc get deploy 					//to get the deployment name
+kc get all
+kc get pods -A					//to get the pods running in the eks cluster present in that namespace
+kc get pods –A					// displays the no of pods running in eks
+kubectl config get-contexts			//list all cluster contexts
+kubectl config use-context cfcr-discovery	// Set the current context
+kc cluster-info					//shows the control plane info
+kubectl get pods nginx-deploy-main-5844dccccb-t292j -oyaml   //to look at the pod information
+kc get ingress   				//gets the ingress
+kc describe ing ingress-wildcard-host  		//describes the ingress
+Kc get all –n ingress-nginx			//shows all the info along with load balancer info
+
+kc get pods –A					// displays the no of pods running in eks
+kubectl config get-contexts			//list all cluster contexts and shows in which cluster we are active
+kubectl config use-context <cluster-name>	// Set the current context
+kc cluster-info					//shows the control plane info
+kc config view					//To look at config view
+kc get ns 						//to get the namepsaces
+kc create ns spogaku 					// to create the namespace
+kc config set-context --current --namespace spogaku	//to switch to the name space
+kc expose deploy nginx-deploy-main --name app1-service --port 80   # This is an imperative way to deploy a service
+if we want to see how that is ebeing converted to declartive by the system then use:
+
+kc get svc <servicename> -oyaml  		//It automatically gives the code.
+kc get deploy					//to get the deployments
+
+df  -h						//displays information about total space and available space on a file system
+
+
+
+kubectl exec -it init-container-example-1 -c web -- bash			//when you have the init containers and you want to get into the pod
+
+
+kc get sc					// to get storage class
+kc get secrets					// to get secrets
+kc get sa					// to get service accounts
+
+kc get pv					//Shows the volumes
+kc get pvc					//shows the PVC
+kc get sc					//shows the storage class
+kc get sc <storage class name> -oyaml		//shown info about staorage class
+kc delete pvc –all				//to delete all the pvc
+kc delete pv –all				//to delete all the pv
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+TLS Secrets:
+=================
+openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout tls.key  -out tls.crt -subj "/CN=testing.ot-xecm.com" -days 365
+Output: tls.crt and tls.keys gets generated
+
+kc get secrets 			//list the secrets generated
+kc get secrets nginx-demo-tls -oyaml		
+
+
+
+
+
+
+Replica Sets:
+-------------
+
+Scalling can be done in 2 ways
+a) Update the file and later scale it
+
+b) Scale from the coomand prompt withbout updating the defintion file
+
+a) Update the file and later scale it
+  Open the replicas-set.yml file and increase the replicas count from 4 to 6
+  kubectl replace -f replicas-set.yml
+  Check if 6 pods of tomcat are running
+  kubectl get pods
+
+b) Scale from the coomand prompt withbout updating the defintion file
+   kubectl scale --replicas=2 -f replica-set.yml	
+Python:
+----------
+lists and Dictionaries:
+-----------------------------
+my_list=[1,2,3]
+my_dict={'key1;:'value1','key2':'value2'}
+we use: dict[key] // to retrieve the value
+my_dict={'fruit':'apple','flower':'daffoldils','chocolate':'perk'}
+my_dict
+my_dict['fruit']
+
+init_list={'a':100,'b':200}
+init_list.keys()   	// to display only keys
+init_list.values()	// to display only values
+init_list.items()  	//to display the items
+init_list['c'] = 300
+init_list
+init_list['a']="sudheer"
+newlist= init_list['a']
+newlist
+
+
+tuples:
+-----------
+t = (1,2,3)
+you cannot changes the values in the list
+
+list
+--------
+my_list=['1','2','3']
+my_list[0]="sudheer"
+my_list
+
+dictionaries:
+-------------
+init_list={'a':100,'b':200}
+init_list['a']
+
+
+Sets:
+------
+myset={1,2,3,4}
+Takes only unique values.
+mylist=[1,1,1,1,1,2,2,2,2,3,3,3,3]
+set(mylist)
+
+
+Condiitonal Statements:
+------------------------
+if <confiiton>:
+	statements
+elif <other condition>:
+	statements
+else:
+	do something else 
+
+
+
+
