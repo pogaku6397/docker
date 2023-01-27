@@ -1,0 +1,23 @@
+#uses the container name
+version: '3.8'
+services:
+ mydb:
+  image: mysql
+  environment: 
+   MYSQL_ROOT_PASSWORD: sudheer
+  container_name: Database
+
+ apache:
+   image: httpd
+   ports:
+    - 6004:80
+   links:
+    - mydb:mysql
+   container_name: Tomcat
+
+ php:
+   image: php
+   links:
+    - mydb:mysql
+    - apache:httpd
+   container_name: PHP
